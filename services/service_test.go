@@ -51,7 +51,6 @@ func TestDownloadRealPhoto(t *testing.T) {
 	os.Remove(want)
 }
 
-
 func TestQueryRealHouses(t *testing.T) {
 	if os.Getenv("CALL_REAL_API") != "TRUE" {
 		return

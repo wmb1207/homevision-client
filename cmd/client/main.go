@@ -1,8 +1,8 @@
 package main
 
 import (
-	"sync"
 	"github.com/wmb1207/homevision_client/services"
+	"sync"
 )
 
 const URL = "http://app-homevision-staging.herokuapp.com/api_project/houses"
