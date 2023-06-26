@@ -1,0 +1,46 @@
+version: '3'
+
+tasks:
+
+  build:
+    cmds:
+      - echo "BUILDING THE CLIENT"
+      - go build -o bin/client cmd/client/main.go
+
+  build-linux-amd64:
+    cmds:
+      - echo "BUILDING THE CLIENT"
+      - docker-compose run compiler bash -c "GOOS=linux GOARCH=amd64 go build -o bin/client cmd/client/main.go"
+    silent: true
+  build-macos-arm64:
+    cmds:
+      - echo "BUILDING THE CLIENT"
+      - docker-compose run compiler bash -c "GOOS=darwin GOARCH=arm64 go build -o bin/client cmd/client/main.go"
+    silent: true
+
+  test-docker:
+    cmds:
+      - echo "TESTING IN DOCKER"
+      - docker-compose run compiler bash -c "go test ./..."
+
+  test-real-docker:
+    cmds:
+      - echo "RUNNING THE TESTS CALLING THE REAL API"
+      - docker-compose run compiler bash -c "CALL_REAL_API=TRUE go test ./..."
+    silent: true
+
+  test:
+    cmds:
+      - echo "RUNNING THE TESTS WITHOUT CALLING THE REAL API"
+      - go test ./...
+    silent: true
+    env:
+      CALL_REAL_API: FALSE
+
+  test-real:
+    cmds:
+      - echo "RUNNING THE TESTS CALLING THE REAL API"
+      - go test ./...
+    silent: true
+    env:
+      CALL_REAL_API: TRUE

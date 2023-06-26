@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  compiler:
+    image: golang:1.20
+    container_name: compiler
+    working_dir: /app
+    volumes:
+      - ./:/app
